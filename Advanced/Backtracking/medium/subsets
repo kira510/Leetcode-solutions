@@ -1,0 +1,53 @@
+/**
+ * https://leetcode.com/problems/subsets/
+ * 
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var subsets = function(nums) {
+    const result = [];
+
+    function backtrack(subset, start) {
+        result.push([...subset]);
+
+        for(let i=start; i<nums.length; i++) {
+            subset.push(nums[i]);
+            backtrack(subset, i+1);
+            subset.pop();
+        }
+    }
+
+    backtrack([], 0);
+    
+    return result;
+};
+
+console.log(JSON.stringify(subsets([1,2,3])));
+
+// Time Complexity: O(2^n) - Each element can either be present or absent.
+// Space Complexity: O(n) - The recursion stack can go as deep as the length of the nums array.
+
+/*
+Time Complexity Analysis: 
+        The function generates all possible subsets of the given array nums. Since each element can either be included or excluded in a subset, 
+        we end up with  2^n subsets (including the empty subset).
+
+        At each recursive call, the function either: Includes the current element in the subset. Excludes the current element and moves to the next.
+        This results in a binary decision tree, where: The root represents an empty subset.
+        Each level of recursion represents a choice (include/exclude) for a specific element.
+        The total number of subsets generated is 2^𝑛, which means there are 𝑂(2^𝑛) function calls.
+        Thus, the time complexity is 
+            O(2^n) because we generate all possible subsets.
+
+
+Space Complexity Analysis: 
+            O(n)
+        The space complexity consists of two main parts:
+
+        Recursion Stack:
+
+        The recursive backtrack function can go as deep as the length of the nums array.
+        In the worst case, when constructing a subset of size n, the maximum depth of recursion is n.
+        This requires 
+            O(n) space.
+*/

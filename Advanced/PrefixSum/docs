@@ -1,0 +1,4 @@
+Prefix Sum feature:
+ * j > i,
+ * sub[0..i] % k === sub[0...j] % k ==> sub[i+1...j]/k = 0
+ * Always use positive remainders 

@@ -1,0 +1,122 @@
+XOR (Exclusive OR) in Bit Manipulation
+The XOR (exclusive OR) operation between two numbers is a bitwise operation that follows these rules:
+
+0 ⊕ 0 = 0
+0 ⊕ 1 = 1
+1 ⊕ 0 = 1
+1 ⊕ 1 = 0
+Example of XOR
+Let's say we have two numbers:
+
+plaintext
+Copy
+Edit
+A = 5  (Binary:  0101)
+B = 3  (Binary:  0011)
+-------------------
+A ⊕ B = 6 (Binary:  0110)
+So, 5 ⊕ 3 = 6.
+
+Properties of XOR
+Self-Inverse: A ⊕ A = 0
+Identity: A ⊕ 0 = A
+Commutative: A ⊕ B = B ⊕ A
+Associative: (A ⊕ B) ⊕ C = A ⊕ (B ⊕ C)
+Finding the missing number in an array: A ⊕ B ⊕ B = A (useful in problems like "Find the single non-repeating element")
+
+
+Uses:
+Finding the Single Non-Repeating Element (Bitwise Trick)
+📌 Use case: When every number appears twice except for one, XOR helps find the unique number efficiently in O(n) time and O(1) space.
+
+Example
+
+function findUnique(arr) {
+    let unique = 0;
+    for (let num of arr) {
+        unique ^= num; // XOR cancels out duplicates
+    }
+    return unique;
+}
+
+console.log(findUnique([4, 3, 2, 4, 2])); // Output: 3
+✅ Why? Since A ⊕ A = 0, all duplicate numbers cancel each other out, leaving the unique one.
+
+2️⃣ Swapping Two Numbers Without Extra Space
+📌 Use case: Avoid using temporary variables for swapping.
+
+Example
+let a = 5, b = 3;
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+console.log(a, b); // Output: 3, 5
+✅ Why? This works because of XOR's properties:
+
+a = a ^ b
+b = a ^ b (which is b = (a ^ b) ^ b → cancels out b, leaving a)
+a = a ^ b (which is a = (a ^ b) ^ a → cancels out a, leaving b)
+3️⃣ Finding the Missing Number in an Array
+📌 Use case: If an array contains numbers from 1 to n but one number is missing, XOR can find it in O(n) time and O(1) space.
+
+Example
+function findMissingNumber(arr, n) {
+    let xorAll = 0, xorArr = 0;
+
+    for (let i = 1; i <= n; i++) xorAll ^= i;  // XOR of all numbers from 1 to n
+    for (let num of arr) xorArr ^= num;        // XOR of all numbers in the array
+
+    return xorAll ^ xorArr; // The missing number
+}
+
+console.log(findMissingNumber([1, 2, 4, 5, 6], 6)); // Output: 3
+✅ Why? XORing all numbers from 1 to n and all numbers in the array cancels everything except the missing number.
+
+4️⃣ Detecting Bit Differences Between Two Numbers
+📌 Use case: Check how many bits differ between two numbers.
+
+Example
+function countSetBits(n) {
+    let count = 0;
+    while (n) {
+        count += n & 1;
+        n >>= 1;
+    }
+    return count;
+}
+
+function hammingDistance(x, y) {
+    return countSetBits(x ^ y); // XOR finds differing bits
+}
+
+console.log(hammingDistance(5, 1)); // Output: 2
+// 5 = 101, 1 = 001 → XOR = 100 (1 bit difference)
+✅ Why? XOR highlights the differing bits between two numbers, and counting the 1s gives the Hamming distance.
+
+5️⃣ Simple Encryption & Decryption (XOR Cipher)
+📌 Use case: XOR can be used for simple encryption, like encoding and decoding a message with a secret key.
+
+Example
+function xorEncryptDecrypt(input, key) {
+    return input.split('')
+                .map(char => String.fromCharCode(char.charCodeAt(0) ^ key))
+                .join('');
+}
+
+let key = 42; // Secret key
+let message = "Hello";
+
+let encrypted = xorEncryptDecrypt(message, key);
+console.log(encrypted); // Encrypted output
+
+let decrypted = xorEncryptDecrypt(encrypted, key);
+console.log(decrypted); // Output: Hello (original message)
+✅ Why? Since A ⊕ B ⊕ B = A, applying XOR twice with the same key reverses the operation.
+
+Summary
+Use Case	Explanation
+Finding Unique Number	XOR cancels out duplicates
+Swapping Without Temp Variable	Saves memory by using XOR trick
+Finding Missing Number	XOR identifies the missing value
+Hamming Distance Calculation	XOR finds bit differences
+Simple Encryption & Decryption	XOR encrypts and decrypts text
