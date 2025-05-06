@@ -34,7 +34,9 @@ var majorityElement = function(nums) {
 console.log(majorityElement([3,2,3]));
 
 
-// The Boyer-Moore Voting Algorithm efficiently finds the majority element in linear time. It maintains a candidate and a counter. It increases the counter for the current candidate on matches while switching the candidate when the counter hits zero.
+// The Boyer-Moore Voting Algorithm efficiently finds the majority element in linear time. 
+// It maintains a candidate and a counter. 
+// It increases the counter for the current candidate on matches while switching the candidate when the counter hits zero.
 
 // Code:
 function majorityElement2(nums) {

@@ -34,3 +34,19 @@ function swap(a, i, j) {
 const nums = [0,1,0,3,12];
 moveZeroes(nums)
 console.log(nums);
+
+
+function easyMoveZeros(nums) {
+    let lastZeroFound = 0
+
+    for(let current=0; current<nums.length; current++) {
+        if(nums[current] != 0) {
+            [nums[current], nums[lastZeroFound]] = [nums[lastZeroFound], nums[current]];
+            lastZeroFound++;
+        }
+    }
+}
+
+const nums2 = [0,1,0,3,12];
+easyMoveZeros(nums2)
+console.log(nums2);

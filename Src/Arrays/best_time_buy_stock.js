@@ -21,3 +21,20 @@ var maxProfit = function(prices) {
 
 console.log(maxProfit([7,1,5,3,6,4]));
 console.log(maxProfit([7,6,4,3,1]));
+
+var maxProfit2 = function(prices) {
+    let i=0, maxPro = 0;
+
+    for(let j=0; j<prices.length; j++) {
+        if(prices[j] < prices[i]) {
+            i = j;
+        } else {
+            maxPro = Math.max(maxPro, prices[j] - prices[i]);
+        }
+    }
+
+    return maxPro;
+}
+
+console.log(maxProfit2([7,1,5,3,6,4]));
+console.log(maxProfit2([7,6,4,3,1]));
