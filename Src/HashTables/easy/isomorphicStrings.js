@@ -14,7 +14,7 @@ var isIsomorphic = function(s, t) {
         const charT = t[i];
 
         if((sMap.has(charS) && sMap.get(charS) !== charT) ||
-            (tMap.has(charT) && tMap.get(charT) !== charS)
+            (tMap.has(charT) && tMap.get(charT) !== charS) //condider example: s = 'badc', t='baba' 
         ) {
             return false
         }

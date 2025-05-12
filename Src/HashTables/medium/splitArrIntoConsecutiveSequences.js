@@ -5,38 +5,35 @@
  * @return {boolean}
  */
 var isPossible = function(nums) {
-    if(nums.length < 3) return false;
-
     const freqMap = new Map();
-    const tailSeqMap = new Map();
+    const tailMap = new Map();
 
     for(const num of nums) {
-        freqMap.set(num, (freqMap.get(num) || 0) + 1)
+        freqMap.set(num, (freqMap.get(num) || 0) + 1);
     }
 
     for(const num of nums) {
-        if((freqMap.get(num) || 0 ) == 0) continue;
+        if(freqMap.get(num) == 0) continue;
 
-        if((tailSeqMap.get(num-1) || 0) > 0) {
-            tailSeqMap.set(num-1, tailSeqMap.get(num-1) - 1);
-            tailSeqMap.set(num, (tailSeqMap.get(num) || 0) + 1);
-        } else if((freqMap.get(num + 1) || 0) > 0 &&
-            (freqMap.get(num + 2) || 0) > 0) {
-                freqMap.set(num+1, freqMap.get(num+1) - 1);
-                freqMap.set(num+2, freqMap.get(num+2) - 1);
-                tailSeqMap.set(num+2, (tailSeqMap.get(num + 2) || 0) + 1)
-        } else {
-            return false;
-        }
+        if(tailMap.has(num-1) && tailMap.get(num-1)>0) {
+            tailMap.set(num - 1, tailMap.get(num-1) - 1);
+            tailMap.set(num, (tailMap.get(num) || 0) + 1);
+        } else if((freqMap.has(num + 1) && freqMap.get(num + 1) > 0) && 
+            (freqMap.has(num + 2) && freqMap.get(num + 2) > 0)
+        ) {
+            freqMap.set(num + 1, freqMap.get(num + 1) - 1);
+            freqMap.set(num + 2, freqMap.get(num + 2) - 1);
+            tailMap.set(num + 2, (tailMap.get(num + 2) || 0) + 1);
+        } else return false
 
         freqMap.set(num, freqMap.get(num) - 1);
     }
 
     return true;
-};
+}
 
 // console.log(isPossible([1,2,3,4]));
-// console.log(isPossible([1,2,3,3,4,4,5,5]));
+console.log(isPossible([1,2,3,3,4,4,5,5]));
 console.log(isPossible([1,2,3,4,4,5]));
 
 /*

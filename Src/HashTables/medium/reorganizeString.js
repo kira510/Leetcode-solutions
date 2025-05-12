@@ -66,3 +66,35 @@ Time Complexity
 Space Complexity
     O(k): For storing characters and their counts in the heap.
 */
+
+var reorganizeString2 = function(s) {
+    const freqMap = new Map();
+    const maxHeap = [];
+
+    for(const char of s) {
+        freqMap.set(char, (freqMap.get(char) || 0) + 1);
+    }
+
+    for(const [char, freq] of freqMap) 
+        maxHeap.push([char, freq]);
+
+    maxHeap.sort((a,b) => b[1] - a[1]);
+
+    const result = [];
+    let prev = ['', -1];
+    while(maxHeap.length) {
+        const [char, freq] = maxHeap.shift();
+
+        result.push(char);
+        if(prev[1] > 0) {
+            maxHeap.push(prev);
+            maxHeap.sort((a,b) => b[1] - a[1]);
+        }
+
+        prev = [char, freq-1];
+    }
+
+    if(result.length < s.length) return '';
+
+    return result.join('');
+};

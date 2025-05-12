@@ -5,15 +5,12 @@
  * @return {boolean}
  */
 var increasingTriplet = function(nums) {
-    let first = Infinity;
-    let second = Infinity;
+    let first = Infinity, second = Infinity;
 
     for(const num of nums) {
-        if(num <= first) {
-            first = num; //initilize first to the smallest
-        } else if(num <= second) {
-            second = num; //bigger then first
-        } else return true
+        if(num <=first) first = num;
+        else if(num <= second) second = num;
+        else return true;
     }
 
     return false;

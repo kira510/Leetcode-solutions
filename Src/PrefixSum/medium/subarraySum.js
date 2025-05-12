@@ -7,7 +7,8 @@
  */
 var subarraySum = function(nums, k) {
     let total = 0, count = 0;
-    const preSum = {0:1};
+    const preSum = {0:1}; //before 0, there no elements from before 0 to total sum k is one subarray 
+    // ex: [1,2,3,5, 5,6] k = 6
 
     for(const num of nums) {
         total += num;

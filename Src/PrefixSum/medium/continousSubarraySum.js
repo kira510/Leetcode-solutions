@@ -7,15 +7,16 @@
  */
 var checkSubarraySum = function(nums, k) {
     const remainderMap = new Map();
+    //this is a remainder index map
     remainderMap.set(0, -1); //at index -1, the sum is 0. Base case
     let runningSum = 0;
 
     for(let i=0; i<nums.length; i++) {
         runningSum+=nums[i];
         let remainder = runningSum%k;
-        if(remainder<0) remainder+=k;
 
         if(remainderMap.has(remainder)) {
+            //return true; fails when [0]
             if(i - remainderMap.get(remainder) > 1) return true
         } else {
             remainderMap.set(remainder, i);

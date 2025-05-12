@@ -8,7 +8,7 @@ var longestConsecutive = function(nums) {
     const numSet = new Set(nums);
     let maxLen = 0;
 
-    for(const num of numSet) {
+    for(const num of numSet) { //if u iterate over nums then it will timeout
         if(!numSet.has(num-1)) { //start with smallest number the seq might start from
             let count = 0;
             let k = num;

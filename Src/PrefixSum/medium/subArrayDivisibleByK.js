@@ -21,7 +21,7 @@ var subarraysDivByK = function(nums, k) {
 
         let remainder = total % k;
 
-        if(remainder < 0) remainder += k;
+        if(remainder < 0) remainder += k; //may have negative numbers
 
         if(remainderTracker[remainder] !== undefined) {
             count += remainderTracker[remainder];
