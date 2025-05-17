@@ -5,34 +5,37 @@
  * @param {string} p
  * @return {number[]}
  */
-const findAnagrams = (s, p) => {
-    const res = [];
-    let reqChars = {};
-    
-    for(const str of p) {
-        if(reqChars[str]) reqChars[str]++;
-        else reqChars[str] = 1;
+var findAnagrams = function(s, p) {
+    const res = [], pLen = p.length;
+    const pCharMap = new Map();
+
+    for(const char of p) {
+        pCharMap.set(char, (pCharMap.get(char) || 0)+1);
     }
 
-    let left = 0;
-    let right = 0;
-    let count = p.length;
-
-    while(right < s.length) {
-        if(reqChars[s[right]] > 0) count--;
-        reqChars[s[right]]--;
-        right++;
-
-        if(count == 0) res.push(left);
-
-        if((right - left) === p.length) {
-            if(reqChars[s[left]] >= 0) count++;
-            reqChars[s[left]]++;
-            left++
+    let left=0, right=0, count = pLen;
+    while(right<s.length) {
+        if(pCharMap.has(s[right])) {
+            const val = pCharMap.get(s[right]);
+            if(val > 0) count--;
+            pCharMap.set(s[right], val-1);
         }
+
+        if(count === 0) res.push(left);
+
+        right++;
+        if((right-left) === pLen) {
+            if(pCharMap.has(s[left])) {
+                const val = pCharMap.get(s[left]);
+                pCharMap.set(s[left], val+1);
+                if(val >= 0) count++;
+            } 
+            left++;
+        }
+
     }
 
     return res;
-};
+}
 
 console.log(findAnagrams("cbaebabacd", "abc"));

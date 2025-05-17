@@ -19,6 +19,7 @@ var checkSubarraySum = function(nums, k) {
             //return true; fails when [0]
             if(i - remainderMap.get(remainder) > 1) return true
         } else {
+            //[5,0,0,0] , will return false if not inside else
             remainderMap.set(remainder, i);
         }
     }
